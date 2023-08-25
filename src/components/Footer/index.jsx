@@ -10,7 +10,7 @@ function Footer(){
     </span>
     <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-white dark:text-gray-400 sm:mt-0">
         <li>
-            <Link href="#" className="mr-4 hover:underline md:mr-6 ">Connexion</Link>
+            <Link to="/" className="mr-4 hover:underline md:mr-6 ">Deconnexion</Link>
         </li>
         
     </ul>
