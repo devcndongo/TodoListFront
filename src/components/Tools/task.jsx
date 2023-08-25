@@ -8,6 +8,7 @@ export default function Task({ task, getUser }) {
   const [fin, setFin] = useState(task.fin);
   const [titre, setTitre] = useState(task.titre);
   const [puce, setPuce] = useState(true);
+  const [check,setCheck] = useState(false);
   const [categorie, setCategorie] = useState(task.categorie);
   const [show, setShow] = useState(false);
   const [commentaire, setCommentaire] = useState(task.commentaire);
@@ -43,6 +44,22 @@ export default function Task({ task, getUser }) {
       return "text-green-800"; // Par défaut, utilisez "text-green-800" si la catégorie n'est pas reconnue
     }
   };
+  const updateCheck = ()=>{
+   if(task.categorie === "TERMINER"){
+    task.categorie = "EN_COURS"
+   }else{
+    task.categorie = "TERMINER"
+   }
+    
+    
+    TaskService.update(task.id, task)
+      .then((response) => {
+        getUser()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,11 +131,13 @@ export default function Task({ task, getUser }) {
             <div class="flex-shrink-0">
               <input
                 type="checkbox"
+                value={check}
+                onClick={(e)=>setCheck(!check)}
                 className="h-5 w-5 border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0 rounded-full "
               />
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+              <p className={`${check ? 'line-through': ''} text-sm font-medium text-gray-900 truncate dark:text-white`}>
                 {task.titre}
               </p>
               <p class="text-sm text-gray-500 truncate dark:text-gray-400">
